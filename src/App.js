@@ -7,12 +7,22 @@ import { Container, Row, Col } from 'reactstrap';
 
 export default class App extends Component {
 
-  state = { currentCategory: "" } //ve asagıda bunu cagıracagız. boylece CategoryList.js deki this.state.currentCategory i this.props.currentCategory olarak degıstırecegız . :D
+  state = { currentCategory: "", products: [] } //ve asagıda bunu cagıracagız. boylece CategoryList.js deki this.state.currentCategory i this.props.currentCategory olarak degıstırecegız . :D
 
   //ve categorydeki setState kısmını buraya almam gerekiyır.-->
 
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName })
+  }
+
+  getProducts = () => {//category sectıgımızde değişen productlara gore gelen tablodakı verılerde degısecegı ıcın bunu yazdık asagıyı ve fıltreleme olcak . :D
+    fetch("http://localhost:3000/products")
+      .then(response => response.json())
+      .then(data => this.setState({ products: data }));;
+  }
+
+  componentDidMount() { //O komponent yerlesşti sayfaya demek. React Life Cycle.
+    this.getProducts();
   }
 
   render() {
@@ -33,7 +43,7 @@ export default class App extends Component {
               <CategoryList currentCategory={this.state.currentCategory} changeCategory={this.changeCategory} info={categoryInfo} />
             </Col>
             <Col xs="9">
-              <ProductList currentCategory={this.state.currentCategory} info={productInfo} />
+              <ProductList products={this.state.products} currentCategory={this.state.currentCategory} info={productInfo} />
             </Col>
           </Row>
         </Container>
