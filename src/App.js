@@ -13,10 +13,17 @@ export default class App extends Component {
 
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName })
+    console.log(category)
+    this.getProducts(category.id); //yukarı satırda ategory degısınce product degıssın ıcındı . bu satırda oyle secılene göre tabo degısecegı ve fıltrelenecegı ıcın :D
   }
 
-  getProducts = () => {//category sectıgımızde değişen productlara gore gelen tablodakı verılerde degısecegı ıcın bunu yazdık asagıyı ve fıltreleme olcak . :D
-    fetch("http://localhost:3000/products")
+  getProducts = (categoryId) => {//category sectıgımızde değişen productlara gore gelen tablodakı verılerde degısecegı ıcın bunu yazdık asagıyı ve fıltreleme olcak . :D
+    let url = "http://localhost:3000/products";
+    if (categoryId) {
+      url += "?categoryId=" + categoryId;
+    }
+
+    fetch(url)
       .then(response => response.json())
       .then(data => this.setState({ products: data }));;
   }
