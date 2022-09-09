@@ -32,11 +32,11 @@ export default class CategoryList extends Component {
           {
             this.state.categories.map(category => ( //map hepsi icin donuyor kac veri varsa :)
               //   <ListGroupItem onClick={() => this.setState({ currentCategory: category.categoryName })} //--->bu sekıldede yazılır su sekılde de ====
-              <ListGroupItem onClick={() => this.props.changeCategory(category)} key={category.id}>{category.categoryName}</ListGroupItem> //key her bir elemanın id si gibi düşün :D --CATEGORY. DEDİK --
+              <ListGroupItem active={category.categoryName === this.props.currentCategory ? true : false} onClick={() => this.props.changeCategory(category)} key={category.id}>{category.categoryName}</ListGroupItem> //key her bir elemanın id si gibi düşün :D --CATEGORY. DEDİK --
             )) //burada ()=> this.setState önemli bu lambda func. olacak.
           }
         </ListGroup>
-        <h4>{this.props.currentCategory}</h4>
+        {/* <h4>{this.props.currentCategory}</h4> */}
       </div>
     )
   }
