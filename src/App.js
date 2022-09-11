@@ -47,6 +47,11 @@ export default class App extends Component {
     }
   }
 
+  removeFromCart = (product) => {
+    let newCart = this.state.cart.filter(c => c.product.id !== product.id)
+    this.setState({ cart: newCart })
+  }
+
   render() {
     // let titleProduct = "Product List" //Bunun yerine aşağı satır: 
     let productInfo = { title: "Product List" }  //Bunun yerine aşağı satır: 
@@ -58,7 +63,7 @@ export default class App extends Component {
     return (
       <div>
         <Container>
-          <Navi cart={this.state.cart} />
+          <Navi removeFromCart={this.removeFromCart} cart={this.state.cart} />
           <Row>
             <Col xs="3">
               <CategoryList currentCategory={this.state.currentCategory} changeCategory={this.changeCategory} info={categoryInfo} />
