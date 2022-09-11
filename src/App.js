@@ -4,6 +4,7 @@ import CategoryList from './CategoryList.js';
 import ProductList from './ProductList.js';
 import './App.css';
 import { Container, Row, Col } from 'reactstrap';
+import alertify from 'alertifyjs';
 
 export default class App extends Component {
 
@@ -37,14 +38,15 @@ export default class App extends Component {
     var addedItem = newCart.find(c => c.product.id === product.id); //sepette newCart ogesi var mı? c= each item
     if (addedItem) {
       addedItem.quantity += 1;
-      this.setState((prevState) => ({
-        cart: prevState.cart
-      }))
+      /*  this.setState((prevState) => ({
+          cart: prevState.cart
+        }))*/
     }
     else {
       newCart.push({ product: product, quantity: 1 }) //aynı urunden varsa sepette bir daha eklemıcez, yoksa eklıcez.
-      this.setState({ cart: newCart })
     }
+    this.setState({ cart: newCart })
+    alertify.success(product.productName + "added to cart!", 2)
   }
 
   removeFromCart = (product) => {
