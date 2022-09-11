@@ -7,7 +7,7 @@ import { Container, Row, Col } from 'reactstrap';
 
 export default class App extends Component {
 
-  state = { currentCategory: "", products: [] } //ve asagıda bunu cagıracagız. boylece CategoryList.js deki this.state.currentCategory i this.props.currentCategory olarak degıstırecegız . :D
+  state = { currentCategory: "", products: [], cart: [] } //ve asagıda bunu cagıracagız. boylece CategoryList.js deki this.state.currentCategory i this.props.currentCategory olarak degıstırecegız . :D
 
   //ve categorydeki setState kısmını buraya almam gerekiyır.-->
 
@@ -32,6 +32,18 @@ export default class App extends Component {
     this.getProducts();
   }
 
+  addToCart = (product) => {
+    let newCart = this.state.cart;
+    var addedItem = newCart.find(c => c.product.id === product.id); //sepette newCart ogesi var mı? c= each item
+    if (addedItem) {
+      addedItem.quantity += 1;
+    }
+    else {
+      newCart.push({ product: product, quantity: 1 }) //aynı urunden varsa sepette bir daha eklemıcez, yoksa eklıcez.
+      this.setState({ cart: newCart })
+    }
+  }
+
   render() {
     // let titleProduct = "Product List" //Bunun yerine aşağı satır: 
     let productInfo = { title: "Product List" }  //Bunun yerine aşağı satır: 
@@ -39,18 +51,17 @@ export default class App extends Component {
     //Nedeni de obje old gu ıcın title a ek olarak başka prop larda ekleyebiliriz :)
     let categoryInfo = { title: "Category List" }
     //aşağıda change category kısmını böyle yaparız. ve CategoryList componentinde bunu props olarak cagırcaz :D
+    //navi de de cart verdik ki optionda ürünün miktarı gosterılsın . yani parent to child :D navi.js de de prop olarak alcaz . :D
     return (
       <div>
         <Container>
-          <Row>
-            <Navi />
-          </Row>
+          <Navi cart={this.state.cart} />
           <Row>
             <Col xs="3">
               <CategoryList currentCategory={this.state.currentCategory} changeCategory={this.changeCategory} info={categoryInfo} />
             </Col>
             <Col xs="9">
-              <ProductList products={this.state.products} currentCategory={this.state.currentCategory} info={productInfo} />
+              <ProductList addToCart={this.addToCart} products={this.state.products} currentCategory={this.state.currentCategory} info={productInfo} />
             </Col>
           </Row>
         </Container>
