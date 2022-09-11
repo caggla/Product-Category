@@ -37,6 +37,9 @@ export default class App extends Component {
     var addedItem = newCart.find(c => c.product.id === product.id); //sepette newCart ogesi var mı? c= each item
     if (addedItem) {
       addedItem.quantity += 1;
+      this.setState((prevState) => ({
+        cart: prevState.cart
+      }))
     }
     else {
       newCart.push({ product: product, quantity: 1 }) //aynı urunden varsa sepette bir daha eklemıcez, yoksa eklıcez.
