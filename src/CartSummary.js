@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import {
     UncontrolledDropdown,
     DropdownToggle,
@@ -6,7 +7,7 @@ import {
     DropdownItem,
     Badge,
     NavItem,
-    NavLink
+    NavLink,
 } from 'reactstrap';
 //reactta parent tan direk  cocugunun cocuguna aktarım yok. parenttan ılk cocuga sonra ıkıncı cocuga sırayla aktaracağız. bu component 2. cocuk. so                             <CartSummary cart={this.props.cart} />
 //  <CartSummary cart={this.props.cart} /> yapacagız navi.js de . navi.js app.js den propu alacak yani. 
@@ -29,7 +30,7 @@ export default class CartSummary extends Component {
                     }
                     <DropdownItem divider />
                     <DropdownItem>
-                        Reset
+                        <Link to="cart">Go To Cart</Link>
                     </DropdownItem>
                 </DropdownMenu>
             </UncontrolledDropdown>
