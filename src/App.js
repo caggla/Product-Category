@@ -8,6 +8,7 @@ import './App.css';
 import { Container, Row, Col } from 'reactstrap';
 import alertify from 'alertifyjs';
 import { Route, Routes } from 'react-router-dom';
+import FormDemo1 from './FormDemo1.js';
 
 export default class App extends Component {
 
@@ -100,6 +101,7 @@ export default class App extends Component {
                 >
                 </Route>
                 <Route path="*" element={<NotFound />}></Route>
+                 <Route path="form1" element={<FormDemo1 />}></Route>
               </Routes>
 
             </Col>
