@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import Navi from './Navi.js';
 import CategoryList from './CategoryList.js';
 import ProductList from './ProductList.js';
+import NotFound from './NotFound.js';
+import CartList from './CartList.js';
 import './App.css';
 import { Container, Row, Col } from 'reactstrap';
 import alertify from 'alertifyjs';
+import { Route, Routes } from 'react-router-dom';
 
 export default class App extends Component {
 
@@ -71,7 +74,26 @@ export default class App extends Component {
               <CategoryList currentCategory={this.state.currentCategory} changeCategory={this.changeCategory} info={categoryInfo} />
             </Col>
             <Col xs="9">
-              <ProductList addToCart={this.addToCart} products={this.state.products} currentCategory={this.state.currentCategory} info={productInfo} />
+              <Routes>
+                <Route
+                  exact
+                  path="/"
+                  element={< ProductList products={
+                    this.state.products
+                  }
+                    currentCategory={
+                      this.state.currentCategory
+                    }
+                    addToCart={
+                      this.addToCart
+                    }
+                    info={
+                      productInfo
+                    } />} />
+                <Route exact path="/cart" element={<CartList />}></Route>
+                <Route path="*" element={<NotFound />}></Route>
+              </Routes>
+
             </Col>
           </Row>
         </Container>
@@ -79,5 +101,6 @@ export default class App extends Component {
     )
   }
 }
+//****Route kısmında anasayfa sanki notfound mus gibi :D */
 //burada onceden defult olarak function App idi. fakat ben componentler arası veri tasıyacagım ıcın App i class yaptım. ve categorydeki setState kısmını buraya almam gerekiyır.
 //ARTIK currentCategory={this.state.currentCategory} Yİ PRODUCT LİSTE DE TASITABİLİRİZ BÖYLECE CATEGORY SECILDIGINDE PRODUCT DEGISECEK :d
